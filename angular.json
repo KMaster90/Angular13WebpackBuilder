@@ -15,8 +15,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
+            "customWebpackConfig": {
+              "path": "./extra-webpack.config.ts",
+              "mergeRules": {
+                "plugins": "prepend"
+              },
+              "replaceDuplicatePlugins": true
+            },
             "outputPath": "dist/a13-webpack",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -24,6 +31,7 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
+              "src/footer.html",
               "src/assets"
             ],
             "styles": [
@@ -33,6 +41,9 @@
           },
           "configurations": {
             "production": {
+              "customWebpackConfig": {
+                "path": "./func-webpack.config.ts"
+              },
               "budgets": [
                 {
                   "type": "initial",
@@ -51,10 +62,21 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
             },
             "development": {
+              "customWebpackConfig": {
+                "path": "./func-webpack.config.ts"
+              },
               "buildOptimizer": false,
+              "aot": true,
               "optimization": false,
               "vendorChunk": true,
               "extractLicenses": false,
@@ -65,7 +87,12 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "host": "localhost",
+            "browserTarget": "A13Webpack:build",
+            "port": 4200
+          },
           "configurations": {
             "production": {
               "browserTarget": "A13Webpack:build:production"
@@ -77,7 +104,7 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "builder": "@angular-builders/custom-webpack:extract-i18n",
           "options": {
             "browserTarget": "A13Webpack:build"
           }
