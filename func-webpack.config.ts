@@ -1,6 +1,6 @@
-import { Configuration, DefinePlugin } from 'webpack';
+import {Configuration, DefinePlugin} from 'webpack';
 import { CustomWebpackBrowserSchema, TargetOptions } from '@angular-builders/custom-webpack';
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { version } from '@project';
 
 /**
@@ -11,6 +11,7 @@ export default (
   opts: CustomWebpackBrowserSchema,
   targetOptions: TargetOptions
 ) => {
+  console.log('cfg')
   if(cfg.plugins){
     cfg.plugins.push(
       new HtmlWebpackPlugin({

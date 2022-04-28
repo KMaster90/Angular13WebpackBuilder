@@ -41,9 +41,7 @@
           },
           "configurations": {
             "production": {
-              "customWebpackConfig": {
-                "path": "./func-webpack.config.ts"
-              },
+
               "budgets": [
                 {
                   "type": "initial",

@@ -1,6 +1,6 @@
 import { Configuration, DefinePlugin } from 'webpack';
 import { version } from '@project';
-import * as HtmlWebpackPlugin from "html-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
 
 /**
  * This is where you define your additional webpack configuration items to be appended to
